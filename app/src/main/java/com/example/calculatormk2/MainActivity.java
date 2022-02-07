@@ -1,7 +1,6 @@
 package com.example.calculatormk2;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onOperatorClick(View v) {
-        addNumberToInput(number);
+        if (!number.toString().equals("")) {
+            addNumberToInput(number);
+        }
         addOperatorToInput(v);
         updateView(v);
     }
@@ -38,106 +39,15 @@ public class MainActivity extends AppCompatActivity {
         clearInput();
     }
 
-    public void calculate(ArrayList i) {
-        while (i.contains("x") || i.contains("÷")) {
-            int indexOperatorTimes = i.indexOf("x");
-            int indexOperatorDivideBy = i.indexOf("÷");
-            int indexOperatorMain;
-
-            if (indexOperatorTimes < indexOperatorDivideBy && indexOperatorTimes != -1) {
-                indexOperatorMain = indexOperatorTimes;
-            } else {
-                indexOperatorMain = indexOperatorDivideBy;
-            }
-            if (indexOperatorDivideBy == -1) {
-                indexOperatorMain = indexOperatorTimes;
-            }
-
-            double firstNumber;
-            double secondNumber;
-            String operator = i.get(indexOperatorMain).toString();
-            double answer;
-
-            if (i.get(indexOperatorMain - 1) instanceof Integer) {
-                firstNumber = (int) i.get(indexOperatorMain - 1);
-            } else {
-                firstNumber = (double) i.get(indexOperatorMain - 1);
-            }
-            if (i.get(indexOperatorMain + 1) instanceof Integer) {
-                secondNumber = (int) i.get(indexOperatorMain + 1);
-            } else {
-                secondNumber = (double) i.get(indexOperatorMain + 1);
-            }
-
-            if (operator.equals("x")) {
-                answer = firstNumber * secondNumber;
-            } else {
-                answer = firstNumber / secondNumber;
-            }
-
-            i.remove(indexOperatorMain - 1);
-            i.remove(indexOperatorMain - 1);
-            i.remove(indexOperatorMain - 1);
-            i.add(indexOperatorMain - 1, answer);
-            System.out.println(i);
-        }
-
-        while (i.contains("+") || i.contains("-")) {
-            int indexOperator1 = i.indexOf("+");
-            int indexOperator2 = i.indexOf("-");
-            int indexOperatorDef;
-
-            if (indexOperator1 < indexOperator2 && indexOperator1 != -1) {
-                indexOperatorDef = indexOperator1;
-            } else {
-                indexOperatorDef = indexOperator2;
-            }
-            if (indexOperator2 == -1) {
-                indexOperatorDef = indexOperator1;
-            }
-
-            double firstNumber;
-            double secondNumber;
-            String operator = i.get(indexOperatorDef).toString();
-            double answer;
-
-            if (i.get(indexOperatorDef - 1) instanceof Integer) {
-                firstNumber = (int) i.get(indexOperatorDef - 1);
-            } else {
-                firstNumber = (double) i.get(indexOperatorDef - 1);
-            }
-            if (i.get(indexOperatorDef + 1) instanceof Integer) {
-                secondNumber = (int) i.get(indexOperatorDef + 1);
-            } else {
-                secondNumber = (double) i.get(indexOperatorDef + 1);
-            }
-
-            if (operator.equals("+")) {
-                answer = firstNumber + secondNumber;
-            } else {
-                answer = firstNumber - secondNumber;
-            }
-            i.remove(indexOperatorDef - 1);
-            i.remove(indexOperatorDef - 1);
-            i.remove(indexOperatorDef - 1);
-            i.add(indexOperatorDef - 1, answer);
-        }
-        calculationDone = true;
-        TextView t = findViewById(R.id.mainOutput);
-        String s = i.get(0).toString();
-        t.setText(s);
-    }
-
     public void addOperatorToInput(View v) {
         input.add(getBtnTxt(v));
     }
 
     public void addNumberToInput(StringBuilder s) {
-        if (s.toString().contains(".")) {
-            input.add(Double.parseDouble(s.toString()));
-        } else {
-            input.add(Integer.parseInt(s.toString()));
+        if (!s.toString().contains(".")) {
+            s.append(".0");
         }
+        input.add(Double.parseDouble(s.toString()));
         clearNumber();
     }
 
@@ -161,5 +71,56 @@ public class MainActivity extends AppCompatActivity {
             calculationDone = false;
         }
         mainOutput.setText(mainOutput.getText() + getBtnTxt(v));
+    }
+
+    public void calculate(ArrayList a) {
+        input = calculateFor(a, "x", "÷");
+        input = calculateFor(a, "+", "-");
+        calculationDone = true;
+        TextView t = findViewById(R.id.mainOutput);
+        t.setText(a.get(0).toString());
+    }
+
+    public ArrayList calculateFor(ArrayList a, String operator1, String operator2) {
+        double answer;
+        while (a.contains(operator1) || a.contains(operator2)) {
+            int indexOperator1 = a.indexOf(operator1);
+            int indexOperator2 = a.indexOf(operator2);
+            int indexOperatorMain;
+
+            if (indexOperator1 < indexOperator2 && indexOperator1 != -1) {
+                indexOperatorMain = indexOperator1;
+            } else {
+                indexOperatorMain = indexOperator2;
+            }
+            if (indexOperator2 == -1) {
+                indexOperatorMain = indexOperator1;
+            }
+            double firstNumber = (double) a.get(indexOperatorMain - 1);
+            double secondNumber = (double) a.get(indexOperatorMain + 1);
+
+            String operatorMain = a.get(indexOperatorMain).toString();
+
+            answer = calculateSingle(firstNumber, secondNumber, operatorMain);
+
+            a.remove(indexOperatorMain - 1);
+            a.remove(indexOperatorMain - 1);
+            a.remove(indexOperatorMain - 1);
+            a.add(indexOperatorMain - 1, answer);
+        }
+        return a;
+    }
+
+    public double calculateSingle(double fNumber, double sNumber, String o) {
+        switch (o) {
+            case "x":
+                return fNumber * sNumber;
+            case "÷":
+                return fNumber / sNumber;
+            case "+":
+                return fNumber + sNumber;
+            default:
+                return fNumber - sNumber;
+        }
     }
 }
