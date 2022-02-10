@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,124 +18,130 @@
         <Button
             android:id="@+id/number7"
             style="@style/calcBtn"
-            android:text="@string/number7"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number7" />
 
         <Button
             android:id="@+id/number8"
             style="@style/calcBtn"
             android:layout_toEndOf="@+id/number7"
-            android:text="@string/number8"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number8" />
 
         <Button
             android:id="@+id/number9"
             style="@style/calcBtn"
             android:layout_toEndOf="@+id/number8"
-            android:text="@string/number9"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number9" />
 
         <Button
             android:id="@+id/number4"
             style="@style/calcBtn"
             android:layout_below="@+id/number7"
-            android:text="@string/number4"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number4" />
 
         <Button
             android:id="@+id/number5"
             style="@style/calcBtn"
             android:layout_below="@+id/number7"
             android:layout_toEndOf="@id/number4"
-            android:text="@string/number5"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number5" />
 
         <Button
             android:id="@+id/number6"
             style="@style/calcBtn"
             android:layout_below="@+id/number7"
             android:layout_toEndOf="@id/number5"
-            android:text="@string/number6"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number6" />
 
         <Button
             android:id="@+id/number1"
             style="@style/calcBtn"
             android:layout_below="@+id/number4"
-            android:text="@string/number1"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number1" />
 
         <Button
             android:id="@+id/number2"
             style="@style/calcBtn"
             android:layout_below="@+id/number4"
             android:layout_toEndOf="@id/number1"
-            android:text="@string/number2"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number2" />
 
         <Button
             android:id="@+id/number3"
             style="@style/calcBtn"
             android:layout_below="@+id/number4"
             android:layout_toEndOf="@id/number2"
-            android:text="@string/number3"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number3" />
 
         <Button
             android:id="@+id/number0"
             style="@style/calcBtn"
             android:layout_below="@+id/number2"
             android:layout_toEndOf="@id/number1"
-            android:text="@string/number0"
-            android:onClick="onNumberClick"/>
+            android:onClick="onNumberClick"
+            android:text="@string/number0" />
 
         <Button
             android:id="@+id/plus"
             style="@style/calcBtn"
             android:layout_alignParentEnd="true"
-            android:text="@string/plus"
-            android:onClick="onOperatorClick"/>
+            android:onClick="onOperatorClick"
+            android:text="@string/plus" />
 
         <Button
             android:id="@+id/minus"
             style="@style/calcBtn"
             android:layout_below="@+id/plus"
             android:layout_alignParentEnd="true"
-            android:text="@string/minus"
-            android:onClick="onOperatorClick"/>
+            android:onClick="onOperatorClick"
+            android:text="@string/minus" />
 
         <Button
             android:id="@+id/times"
             style="@style/calcBtn"
             android:layout_below="@+id/minus"
             android:layout_alignParentEnd="true"
-            android:text="@string/times"
-            android:onClick="onOperatorClick"/>
+            android:onClick="onOperatorClick"
+            android:text="@string/times" />
 
         <Button
             android:id="@+id/divideBy"
             style="@style/calcBtn"
             android:layout_below="@+id/times"
             android:layout_alignParentEnd="true"
-            android:text="@string/divideBy"
-            android:onClick="onOperatorClick"/>
+            android:onClick="onOperatorClick"
+            android:text="@string/divideBy" />
 
         <Button
             android:id="@+id/dot"
             style="@style/calcBtn"
             android:layout_below="@id/minus"
             android:layout_toStartOf="@+id/plus"
-            android:text="@string/point"
-            android:onClick="onNumberClick"/> <!--NIE ZKR-->
+            android:onClick="onNumberClick"
+            android:text="@string/point" /> <!--NIE ZKR-->
 
         <Button
             android:id="@+id/equals"
             style="@style/calcBtn"
             android:layout_below="@id/times"
             android:layout_toStartOf="@+id/divideBy"
-            android:text="@string/equals"
-            android:onClick="onEqualsClick"/>
+            android:onClick="onEqualsClick"
+            android:text="@string/equals" />
 
+        <Button
+            android:id="@+id/delete"
+            style="@style/calcBtn"
+            android:layout_toEndOf="@+id/number9"
+            android:onClick="onDeleteClick"
+            android:text="@string/delete" />
 
     </RelativeLayout>
 
@@ -144,10 +149,10 @@
         android:id="@+id/mainOutput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="150dp"
-        android:textSize="20sp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
